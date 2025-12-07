@@ -2,39 +2,28 @@
 package com.moxc.backend.controller;
 
 import com.moxc.backend.pojo.ApiResponse;
-import com.moxc.backend.pojo.dto.LoginRequestDTO;
-import org.springframework.web.bind.annotation.*;
-import java.util.HashMap;
+import com.moxc.backend.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Map;
 
-/*
-* @RestController
-* 这是一个组合注解，相当于 @Controller + @ResponseBody
-* @Controller：标识这个类是Spring MVC的控制器
-* @ResponseBody：表示方法的返回值直接写入HTTP响应体，而不是跳转到视图页面
-* */
 @RestController
-@RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5174")
+@RequestMapping("/admin") // 接口文档中路径 /admin/login
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
-    @PostMapping("/login")
-    public ApiResponse<Map<String, Object>> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        String username = loginRequestDTO.getUsername();
-        String password = loginRequestDTO.getPassword();
+    @Autowired
+    private AuthService authService;
 
-        // 模拟验证
-        if ("moxc".equals(username) && "123".equals(password)) {
-            Map<String, Object> data = new HashMap<>();
-            data.put("token", "fake-jwt-token-" + System.currentTimeMillis());
-            data.put("user", Map.of(
-                    "id", 1,
-                    "username", "moxc",
-                    "personalityType", "INTJ"
-            ));
-            return ApiResponse.ok(data);
-        } else {
-            return ApiResponse.error("用户名或密码错误", 401);
-        }
+    @RequestMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ApiResponse<Map<String, Object>> login(
+            @RequestParam String username,
+            @RequestParam String password) {
+        return authService.login(username, password);
     }
 }
