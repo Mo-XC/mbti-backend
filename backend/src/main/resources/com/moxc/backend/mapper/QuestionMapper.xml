@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--上面的信息不用动-->
+
+<!--mapper是 根标签-->
+<!--namespace要与Mapper接口 全限定名 一致-->
+<mapper namespace="com.moxc.backend.mapper.QuestionMapper">
+    <select id="getQuestionsByVersion" resultType="com.moxc.backend.pojo.dto.QuestionDTO">
+        SELECT * FROM (
+            (select * from questions where dimension = 'E/I' and is_active = 1 order by RAND() limit #{perDim})
+            UNION ALL
+            (select * from questions where dimension = 'S/N' and is_active = 1 order by RAND() limit #{perDim})
+            UNION ALL
+            (select * from questions where dimension = 'T/F' and is_active = 1 order by RAND() limit #{perDim})
+            UNION ALL
+            (select * from questions where dimension = 'J/P' and is_active = 1 order by RAND() limit #{perDim})
+            ) as combined
+        ORDER BY RAND()
+    </select>
+</mapper>

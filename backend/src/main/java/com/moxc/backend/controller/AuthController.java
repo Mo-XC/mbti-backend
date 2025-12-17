@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/admin") // 接口文档中路径 /admin/login
-@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/auth") // 接口文档中路径 /admin/login
 public class AuthController {
 
     @Autowired
