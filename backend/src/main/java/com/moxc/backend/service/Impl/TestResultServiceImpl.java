@@ -1,7 +1,6 @@
 package com.moxc.backend.service.Impl;
 
 import com.moxc.backend.pojo.dto.AnswerItemDTO;
-import com.moxc.backend.pojo.dto.PersonalityAnalysisDTO;
 import com.moxc.backend.pojo.dto.SubmitTestRequestDTO;
 import com.moxc.backend.pojo.dto.TestResultDTO;
 import com.moxc.backend.service.TestResultService;

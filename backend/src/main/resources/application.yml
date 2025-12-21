@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:mysql://172.19.45.74:3306/mbti_youyou?useSSL=false&requireSSL=false&verifyServerCertificate=false&serverTimezone=Asia/Shanghai&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    username: root
+    password: HuTao&&77
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 3
+      idle-timeout: 30000
+      connection-timeout: 30000
+server:
+  port: 8080
+logging:
+  level:
+    com.moxc.backend: info
